@@ -1,0 +1,12 @@
+2023-06-02 17:17:17,937 DEBUG Using selector: EpollSelector
+2023-06-02 17:17:17,937 DEBUG Starting connection factory for <RobustConnection: "amqp://vanessa:******@localhost/" 0 channels>
+2023-06-02 17:17:17,937 DEBUG Waiting for connection close event for <RobustConnection: "amqp://vanessa:******@localhost/" 0 channels>
+2023-06-02 17:17:17,937 DEBUG Connection attempt for <RobustConnection: "amqp://vanessa:******@localhost/" 0 channels>
+2023-06-02 17:17:17,937 DEBUG Connecting to: amqp://vanessa:******@localhost:5672/
+2023-06-02 17:17:17,941 DEBUG Connection made on <RobustConnection: "amqp://vanessa:******@localhost/" 0 channels>
+2023-06-02 17:17:17,941 DEBUG Sending <Connection.Close object at 0x7f06cc00d7c0> to <Connection: "amqp://vanessa:******@localhost:5672/" at 0x7f06cc059a90>
+2023-06-02 17:17:17,941 DEBUG Reader exited for <Connection: "amqp://vanessa:******@localhost:5672/" at 0x7f06cc059a90>
+2023-06-02 17:17:17,942 DEBUG Writer on connection amqp://vanessa:******@localhost:5672/ closed
+2023-06-02 17:17:17,942 DEBUG Writer exited for <Connection: "amqp://vanessa:******@localhost:5672/" at 0x7f06cc059a90>
+2023-06-02 17:17:17,942 DEBUG Closing connection <Connection: "amqp://vanessa:******@localhost:5672/" at 0x7f06cc059a90> cause: CancelledError()
+2023-06-02 17:17:17,943 INFO Connection to amqp://vanessa:******@localhost/ closed. Reconnecting after 5 seconds.
