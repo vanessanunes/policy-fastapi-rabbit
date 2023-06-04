@@ -3,6 +3,25 @@
 
 ## configuração
 
+## banco de dados
+
+Em `data_definition.py` temos as nossas tabelas.
+Para rodar basta apenas usar o comando ```alembic upgrade head```
+
+Caso seja necessário a mudança de alguma tabela:
+```shell
+alembic revision --autogenerate -m "comentario"
+alembic upgrade head
+```
+
+Para desfazer tudo:
+
+```alembic downgrade base```
+
+Para refazer um commit:
+
+```alembic downgrade {revision}```
+
 ## apis
 
 Foi pedido o payload em português, mas acabei optando por deixar em inglês e acredito que isso não será um problema.
@@ -23,7 +42,7 @@ Payload para produto 111 (seguro residêncial):
             "name": "jose",
             "cpf": 12345678912
         },
-        "recipient":{
+        "beneficiary":{
             "name": "Imobiliaria X",
             "cnpj": 12345678912345
         }
@@ -43,7 +62,7 @@ Payload para produto 222 (seguro automóvel)
         "plate": "ABC1234",
         "chassis": 123213,
         "model": "PORCHE",
-        "recipient":{
+        "beneficiary":{
             "name": "Imobiliaria X",
             "cnpj": 12345678912345
         }
