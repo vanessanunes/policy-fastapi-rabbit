@@ -1,8 +1,14 @@
 import asyncio
 import logging
-from logging.config import dictConfig
+import os
 import aio_pika
 
+
+from dotenv import load_dotenv
+from logging.config import dictConfig
+
+
+load_dotenv()
 # logging.basicConfig(
 #     level=logging.DEBUG,
 #     format='%(asctime)s %(levelname)s %(message)s',
@@ -20,13 +26,13 @@ import aio_pika
 
 
 async def on_message(message: aio_pika.abc.AbstractIncomingMessage):
-    # salvar no banco de dados o que deve ser pago
     async with message.process():
         print(message.body)
 
 
 async def main() -> None:
-    connection = await aio_pika.connect_robust("amqp://vanessa:vanessa123@localhost/")
+    rabbitmq_url = os.getenv("RABBITMQ_URL")
+    connection = await aio_pika.connect_robust(rabbitmq_url)
     queue_name = "property"
 
     # logger.info("listening consumer")
