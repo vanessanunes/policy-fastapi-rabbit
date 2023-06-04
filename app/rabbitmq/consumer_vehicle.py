@@ -1,5 +1,12 @@
 import asyncio
+import os
 import aio_pika
+
+
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 
 async def on_message(message: aio_pika.abc.AbstractIncomingMessage):
@@ -7,8 +14,10 @@ async def on_message(message: aio_pika.abc.AbstractIncomingMessage):
         print(message.body)
 
 
-async def main() -> None:
-    connection = await aio_pika.connect_robust("amqp://vanessa:vanessa123@localhost/")
+async def vehicle() -> None:
+    rabbitmq_url = os.getenv("RABBITMQ_URL")
+    print(rabbitmq_url)
+    connection = await aio_pika.connect_robust(rabbitmq_url)
     queue_name = "vehicle"
 
     async with connection:
@@ -23,4 +32,4 @@ async def main() -> None:
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    asyncio.run(vehicle())

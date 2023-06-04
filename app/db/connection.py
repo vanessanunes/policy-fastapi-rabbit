@@ -14,6 +14,7 @@ Base = declarative_base()
 
 class DBConnection:
     def __init__(self) -> None:
+        print(SQLALCHEMY_DATABASE_URL)
         self.__connection_string = SQLALCHEMY_DATABASE_URL
         self.__engine = self.__create_database_engine()
         self.session = None
