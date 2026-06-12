@@ -1,55 +1,40 @@
-version: "3.8"
-
 services:
-  api_seguro:
-    container_name: api_seguro
+  api_policy:
+    container_name: api_policy
     build: .
     # command: bash -c "alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 5000 --reload"
     ports:
       - 3813:5000
     networks:
-      - default
+      - network_policy
     depends_on:
-      - db_seguro
-    links:
-      - db_seguro
+      - mongodb_policy
 
-  db_seguro:
-    image: postgres
+  mongodb_policy:
+    container_name: mongodb_policy
+    image: mongo:latest
     restart: always
-    container_name: db_seguro
-    ports:
-      - "5432:5432"
-    env_file:
-      - .env
+    ports: 
+      - "27017:27017"
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DATABASE: ${POSTGRES_DATABASE}
-      POSTGRES_HOST: ${POSTGRES_HOST}
-      # POSTGRES_USER: ${POSTGRES_USER}
-      # POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      # POSTGRES_DATABASE: ${POSTGRES_DATABASE}
-      # POSTGRES_HOST: ${POSTGRES_HOST}
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
     networks:
-      - default
+      - network_policy
 
-  rabbitmq_seguro:
+  rabbitmq_policy:
     image: rabbitmq:3-management-alpine
-    container_name: "rabbitmq_seguro"
+    container_name: "rabbitmq_policy"
     ports:
-      - 5673:5673
-      - 15673:15673
+      - 5672:5672
+      - 15672:15672
     environment:
-    - RABBITMQ_DEFAULT_USER=seguro
-    - RABBITMQ_DEFAULT_PASS=seguro123
-    # volumes:
-    #   - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-      # - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+      - RABBITMQ_DEFAULT_USER=policy
+      - RABBITMQ_DEFAULT_PASS=policy123
     networks:
-      - default
+      - network_policy
 
 networks:
-  default:
-    external: true
+  network_policy:
+    driver: bridge
     name: policy-networks
