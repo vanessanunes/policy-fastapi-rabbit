@@ -1,5 +1,4 @@
 from pymongo import AsyncMongoClient
-
 from app.core.settings import get_settings
 
 settings = get_settings
@@ -13,19 +12,19 @@ class MongoConnection:
         self.client: AsyncMongoClient = None
         self.db = None
 
-    def connect(self):
+    def connect(self) -> None:
         self.client = AsyncMongoClient(MONGO_URI)
         self.db = self.client[DATABASE_NAME]
+        # log
 
     def disconnect(self):
-        """Fecha a conexão (útil para o shutdown da API)"""
         if self.client:
             self.client.close()
-            print("🛑 Conexão com o MongoDB encerrada.")
+            # Log("🛑 Conexão com o MongoDB encerrada.")
 
 
 mongo_manager = MongoConnection()
 
 
 async def get_db():
-    return mongo_manager.db
+    yield mongo_manager.db
