@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 from app.api import policy_v2
 from app.core.database import mongo_manager
+from app.core.handler import configure_error_handlers
 from app.core.settings import get_settings
 
 settings = get_settings
@@ -29,6 +30,8 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title=settings.app_name, lifespan=lifespan)
+
+configure_error_handlers(app)
 
 app.include_router(policy_v2.router)
 
